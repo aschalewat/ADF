@@ -11,10 +11,10 @@
 				},
 				"parameters": {
 					"PL-serverName": "DESKTOP-3SA6C5T",
-					"PL-dbNmae": "mymusic",
+					"PL-dbName": "mymusic",
 					"PL-user": "aschalew",
 					"PL-pass": "astes310569",
-					"PL-tableNmae": "Artist"
+					"PL-tableName": "Artist"
 				}
 			}
 		],
