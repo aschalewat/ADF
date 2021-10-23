@@ -36,7 +36,7 @@
 						"referenceName": "SqlServerTable",
 						"type": "DatasetReference",
 						"parameters": {
-							"Ds-serverName": {
+							"DS-serverName": {
 								"value": "@pipeline().parameters.PL-serverName",
 								"type": "Expression"
 							},
@@ -44,7 +44,7 @@
 								"value": "@pipeline().parameters.PL-dbName",
 								"type": "Expression"
 							},
-							"Ds-user": {
+							"DS-user": {
 								"value": "@pipeline().parameters.PL-user",
 								"type": "Expression"
 							},

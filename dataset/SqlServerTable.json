@@ -6,15 +6,15 @@
 			"type": "LinkedServiceReference",
 			"parameters": {
 				"serverName": {
-					"value": "@dataset().Ds-serverName",
+					"value": "@dataset().DS-serverName",
 					"type": "Expression"
 				},
-				"dbNmae": {
+				"dbName": {
 					"value": "@dataset().DS-dbName",
 					"type": "Expression"
 				},
 				"user": {
-					"value": "@dataset().Ds-user",
+					"value": "@dataset().DS-user",
 					"type": "Expression"
 				},
 				"password": {
@@ -24,13 +24,13 @@
 			}
 		},
 		"parameters": {
-			"Ds-serverName": {
+			"DS-serverName": {
 				"type": "string"
 			},
 			"DS-dbName": {
 				"type": "string"
 			},
-			"Ds-user": {
+			"DS-user": {
 				"type": "string"
 			},
 			"DS-pass": {
