@@ -21,12 +21,14 @@
 						"partitionOption": "None"
 					},
 					"sink": {
-						"type": "JsonSink",
+						"type": "DelimitedTextSink",
 						"storeSettings": {
 							"type": "AzureBlobStorageWriteSettings"
 						},
 						"formatSettings": {
-							"type": "JsonWriteSettings"
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".csv"
 						}
 					},
 					"enableStaging": false
@@ -36,24 +38,24 @@
 						"referenceName": "SqlServerTable",
 						"type": "DatasetReference",
 						"parameters": {
-							"DS-serverName": {
-								"value": "@pipeline().parameters.PL-serverName",
-								"type": "Expression"
-							},
-							"DS-dbName": {
-								"value": "@pipeline().parameters.PL-dbName",
-								"type": "Expression"
-							},
-							"DS-user": {
-								"value": "@pipeline().parameters.PL-user",
-								"type": "Expression"
-							},
-							"DS-pass": {
-								"value": "@pipeline().parameters.PL-pass",
-								"type": "Expression"
-							},
 							"tableName": {
-								"value": "@pipeline().parameters.PL-tableName",
+								"value": "@pipeline().parameters.PLtableName",
+								"type": "Expression"
+							},
+							"DSserverName": {
+								"value": "@pipeline().parameters.PLserverName",
+								"type": "Expression"
+							},
+							"DSdbName": {
+								"value": "@pipeline().parameters.PLdbName",
+								"type": "Expression"
+							},
+							"DSuser": {
+								"value": "@pipeline().parameters.PLuser",
+								"type": "Expression"
+							},
+							"DSpassword": {
+								"value": "@pipeline().parameters.PLpassword",
 								"type": "Expression"
 							}
 						}
@@ -61,26 +63,26 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "DS_JSONBooks",
+						"referenceName": "DS_CSVArtist",
 						"type": "DatasetReference"
 					}
 				]
 			}
 		],
 		"parameters": {
-			"PL-serverName": {
+			"PLtableName": {
 				"type": "string"
 			},
-			"PL-dbName": {
+			"PLserverName": {
 				"type": "string"
 			},
-			"PL-user": {
+			"PLdbName": {
 				"type": "string"
 			},
-			"PL-pass": {
+			"PLuser": {
 				"type": "string"
 			},
-			"PL-tableName": {
+			"PLpassword": {
 				"type": "string"
 			}
 		},

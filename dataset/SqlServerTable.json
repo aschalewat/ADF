@@ -6,37 +6,37 @@
 			"type": "LinkedServiceReference",
 			"parameters": {
 				"serverName": {
-					"value": "@dataset().DS-serverName",
+					"value": "@dataset().DSserverName",
 					"type": "Expression"
 				},
 				"dbName": {
-					"value": "@dataset().DS-dbName",
+					"value": "@dataset().DSdbName",
 					"type": "Expression"
 				},
 				"user": {
-					"value": "@dataset().DS-user",
+					"value": "@dataset().DSdbName",
 					"type": "Expression"
 				},
 				"password": {
-					"value": "@dataset().DS-pass",
+					"value": "@dataset().DSpassword",
 					"type": "Expression"
 				}
 			}
 		},
 		"parameters": {
-			"DS-serverName": {
-				"type": "string"
-			},
-			"DS-dbName": {
-				"type": "string"
-			},
-			"DS-user": {
-				"type": "string"
-			},
-			"DS-pass": {
-				"type": "string"
-			},
 			"tableName": {
+				"type": "string"
+			},
+			"DSserverName": {
+				"type": "string"
+			},
+			"DSdbName": {
+				"type": "string"
+			},
+			"DSuser": {
+				"type": "string"
+			},
+			"DSpassword": {
 				"type": "string"
 			}
 		},
@@ -44,7 +44,7 @@
 		"type": "SqlServerTable",
 		"schema": [],
 		"typeProperties": {
-			"schema": "dbo.",
+			"schema": "dbo",
 			"table": {
 				"value": "@dataset().tableName",
 				"type": "Expression"
