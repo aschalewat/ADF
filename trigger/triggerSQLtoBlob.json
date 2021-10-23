@@ -23,11 +23,11 @@
 			"recurrence": {
 				"frequency": "Day",
 				"interval": 1,
-				"startTime": "2021-10-23T15:39:00Z",
-				"timeZone": "UTC",
+				"startTime": "2021-10-23T16:43:00",
+				"timeZone": "GMT Standard Time",
 				"schedule": {
 					"minutes": [
-						42
+						44
 					],
 					"hours": [
 						16
