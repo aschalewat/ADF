@@ -11,9 +11,6 @@
 			},
 			"password": {
 				"type": "string"
-			},
-			"serverName": {
-				"type": "string"
 			}
 		},
 		"annotations": [],
