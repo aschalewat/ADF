@@ -1,0 +1,9 @@
+{
+	"name": "Demo-ADF-PoC",
+	"location": "ukwest",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "c49dd95f-826a-4807-af28-195895af517f",
+		"tenantId": "45e74e98-4c39-482f-bfbc-ac9ef180632e"
+	}
+}
