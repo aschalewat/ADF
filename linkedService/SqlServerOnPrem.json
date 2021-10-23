@@ -3,9 +3,6 @@
 	"type": "Microsoft.DataFactory/factories/linkedservices",
 	"properties": {
 		"parameters": {
-			"serverName": {
-				"type": "string"
-			},
 			"dbName": {
 				"type": "string"
 			},
@@ -14,12 +11,15 @@
 			},
 			"password": {
 				"type": "string"
+			},
+			"serverName": {
+				"type": "string"
 			}
 		},
 		"annotations": [],
 		"type": "SqlServer",
 		"typeProperties": {
-			"connectionString": "Integrated Security=False;Data Source=@{linkedService().serverName};Initial Catalog=@{linkedService().serverName};User ID=@{linkedService().user};Password=@{linkedService().password}"
+			"connectionString": "Integrated Security=False;Data Source=@{linkedService().serverName};Initial Catalog=@{linkedService().dbName};User ID=@{linkedService().user};Password=@{linkedService().password}"
 		},
 		"connectVia": {
 			"referenceName": "OnPremIR",
