@@ -1,0 +1,39 @@
+{
+	"name": "triggerSQLtoBlob",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "Sql2Blob",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"PL-serverName": "DESKTOP-3SA6C5T",
+					"PL-dbNmae": "mymusic",
+					"PL-user": "aschalew",
+					"PL-pass": "astes310569",
+					"PL-tableNmae": "Artist"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Day",
+				"interval": 1,
+				"startTime": "2021-10-23T15:39:00Z",
+				"timeZone": "UTC",
+				"schedule": {
+					"minutes": [
+						42
+					],
+					"hours": [
+						16
+					]
+				}
+			}
+		}
+	}
+}
