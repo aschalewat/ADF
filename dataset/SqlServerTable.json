@@ -1,0 +1,54 @@
+{
+	"name": "SqlServerTable",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SqlServerOnPrem",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"serverName": {
+					"value": "@dataset().Ds-serverName",
+					"type": "Expression"
+				},
+				"dbNmae": {
+					"value": "@dataset().DS-dbName",
+					"type": "Expression"
+				},
+				"user": {
+					"value": "@dataset().Ds-user",
+					"type": "Expression"
+				},
+				"password": {
+					"value": "@dataset().DS-pass",
+					"type": "Expression"
+				}
+			}
+		},
+		"parameters": {
+			"Ds-serverName": {
+				"type": "string"
+			},
+			"DS-dbName": {
+				"type": "string"
+			},
+			"Ds-user": {
+				"type": "string"
+			},
+			"DS-pass": {
+				"type": "string"
+			},
+			"tableName": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo.",
+			"table": {
+				"value": "@dataset().tableName",
+				"type": "Expression"
+			}
+		}
+	}
+}
