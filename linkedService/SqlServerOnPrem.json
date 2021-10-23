@@ -20,6 +20,10 @@
 		"type": "SqlServer",
 		"typeProperties": {
 			"connectionString": "Integrated Security=False;Data Source=@{linkedService().serverName};Initial Catalog=@{linkedService().dbNmae};User ID=@{linkedService().user};Password=@{linkedService().password}"
+		},
+		"connectVia": {
+			"referenceName": "OnPremIR",
+			"type": "IntegrationRuntimeReference"
 		}
 	}
 }
