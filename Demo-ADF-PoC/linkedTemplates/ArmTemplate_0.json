@@ -10,6 +10,22 @@
 		"AzureBlobStorageForADF_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorageForADF'"
+		},
+		"AzureBlobStorageOnPrem_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorageOnPrem'"
+		},
+		"PostgreSqlOnPrem_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'PostgreSqlOnPrem'"
+		},
+		"SqlServerOnPrem_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'SqlServerOnPrem'"
+		},
+		"SqlServerOnPrem1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'SqlServerOnPrem1'"
 		}
 	},
 	"variables": {
@@ -28,6 +44,43 @@
 				}
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/OnPremIR')]",
+			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "SelfHosted",
+				"typeProperties": {}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_CSVArtist')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorageForADF",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"container": "output"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorageForADF')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/DS_CSVBooks')]",
@@ -94,6 +147,96 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorageForADF')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureBlobStorageOnPrem')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('AzureBlobStorageOnPrem_connectionString')]"
+				},
+				"connectVia": {
+					"referenceName": "OnPremIR",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/OnPremIR')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/PostgreSqlOnPrem')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "PostgreSql",
+				"typeProperties": {
+					"connectionString": "[parameters('PostgreSqlOnPrem_connectionString')]"
+				},
+				"connectVia": {
+					"referenceName": "OnPremIR",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/OnPremIR')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SqlServerOnPrem')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"parameters": {
+					"serverName": {
+						"type": "string"
+					},
+					"dbName": {
+						"type": "string"
+					},
+					"user": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "SqlServer",
+				"typeProperties": {
+					"connectionString": "[parameters('SqlServerOnPrem_connectionString')]"
+				},
+				"connectVia": {
+					"referenceName": "OnPremIR",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/OnPremIR')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SqlServerOnPrem1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "SqlServer",
+				"typeProperties": {
+					"connectionString": "[parameters('SqlServerOnPrem1_connectionString')]"
+				},
+				"connectVia": {
+					"referenceName": "OnPremIR",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/OnPremIR')]"
 			]
 		},
 		{
@@ -165,6 +308,407 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/DS_CSVBooks')]",
 				"[concat(variables('factoryId'), '/datasets/DS_JSONBooks')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/PostgreSqlBooks')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "PostgreSqlOnPrem",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "PostgreSqlTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": "public",
+					"table": "books"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/PostgreSqlOnPrem')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SqlServerArtist')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "SqlServerOnPrem1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "SqlServerTable",
+				"schema": [
+					{
+						"name": "ArtistID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "FirstName",
+						"type": "varchar"
+					},
+					{
+						"name": "LastName",
+						"type": "varchar"
+					},
+					{
+						"name": "Town",
+						"type": "varchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "Artist"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/SqlServerOnPrem1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SqlServerTable')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "SqlServerOnPrem",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"serverName": {
+							"value": "@dataset().DSserverName",
+							"type": "Expression"
+						},
+						"dbName": {
+							"value": "@dataset().DSdbName",
+							"type": "Expression"
+						},
+						"user": {
+							"value": "@dataset().DSdbName",
+							"type": "Expression"
+						},
+						"password": {
+							"value": "@dataset().DSpassword",
+							"type": "Expression"
+						}
+					}
+				},
+				"parameters": {
+					"tableName": {
+						"type": "string"
+					},
+					"DSserverName": {
+						"type": "string"
+					},
+					"DSdbName": {
+						"type": "string"
+					},
+					"DSuser": {
+						"type": "string"
+					},
+					"DSpassword": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "SqlServerTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": {
+						"value": "@dataset().tableName",
+						"type": "Expression"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/SqlServerOnPrem')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/MSSQL2Blob')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Move Artist 2 Blob",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "SqlServerSource",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "AzureBlobStorageWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".csv"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "SqlServerArtist",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "DS_CSVArtist",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"folder": {
+					"name": "SQL2Blob"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/SqlServerArtist')]",
+				"[concat(variables('factoryId'), '/datasets/DS_CSVArtist')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/PGSQL2Blob')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy Books to Blob",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "PostgreSqlSource"
+							},
+							"sink": {
+								"type": "JsonSink",
+								"storeSettings": {
+									"type": "AzureBlobStorageWriteSettings"
+								},
+								"formatSettings": {
+									"type": "JsonWriteSettings",
+									"filePattern": "arrayOfObjects"
+								}
+							},
+							"enableStaging": false
+						},
+						"inputs": [
+							{
+								"referenceName": "PostgreSqlBooks",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "DS_JSONBooks",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"folder": {
+					"name": "SQL2Blob"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/PostgreSqlBooks')]",
+				"[concat(variables('factoryId'), '/datasets/DS_JSONBooks')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Sql2Blob')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy SQL to Blob",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "SqlServerSource",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "AzureBlobStorageWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".csv"
+								}
+							},
+							"enableStaging": false
+						},
+						"inputs": [
+							{
+								"referenceName": "SqlServerTable",
+								"type": "DatasetReference",
+								"parameters": {
+									"tableName": {
+										"value": "@pipeline().parameters.PLtableName",
+										"type": "Expression"
+									},
+									"DSserverName": {
+										"value": "@pipeline().parameters.PLserverName",
+										"type": "Expression"
+									},
+									"DSdbName": {
+										"value": "@pipeline().parameters.PLdbName",
+										"type": "Expression"
+									},
+									"DSuser": {
+										"value": "@pipeline().parameters.PLuser",
+										"type": "Expression"
+									},
+									"DSpassword": {
+										"value": "@pipeline().parameters.PLpassword",
+										"type": "Expression"
+									}
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "DS_CSVArtist",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"PLtableName": {
+						"type": "string"
+					},
+					"PLserverName": {
+						"type": "string"
+					},
+					"PLdbName": {
+						"type": "string"
+					},
+					"PLuser": {
+						"type": "string"
+					},
+					"PLpassword": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "SQL2Blob"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/SqlServerTable')]",
+				"[concat(variables('factoryId'), '/datasets/DS_CSVArtist')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/triggerSQLtoBlob')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "Sql2Blob",
+							"type": "PipelineReference"
+						},
+						"parameters": {}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Day",
+						"interval": 1,
+						"startTime": "2021-10-23T16:43:00",
+						"timeZone": "GMT Standard Time",
+						"schedule": {
+							"minutes": [
+								19
+							],
+							"hours": [
+								19
+							]
+						}
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/Sql2Blob')]"
 			]
 		}
 	]

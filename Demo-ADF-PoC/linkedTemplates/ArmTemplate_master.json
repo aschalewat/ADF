@@ -11,6 +11,22 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorageForADF'"
 		},
+		"AzureBlobStorageOnPrem_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorageOnPrem'"
+		},
+		"PostgreSqlOnPrem_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'PostgreSqlOnPrem'"
+		},
+		"SqlServerOnPrem_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'SqlServerOnPrem'"
+		},
+		"SqlServerOnPrem1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'SqlServerOnPrem1'"
+		},
 		"containerUri": {
 			"type": "string",
 			"metadata": "URI to storage account containing linked ARM templates"
@@ -40,6 +56,18 @@
 					},
 					"AzureBlobStorageForADF_connectionString": {
 						"value": "[parameters('AzureBlobStorageForADF_connectionString')]"
+					},
+					"AzureBlobStorageOnPrem_connectionString": {
+						"value": "[parameters('AzureBlobStorageOnPrem_connectionString')]"
+					},
+					"PostgreSqlOnPrem_connectionString": {
+						"value": "[parameters('PostgreSqlOnPrem_connectionString')]"
+					},
+					"SqlServerOnPrem_connectionString": {
+						"value": "[parameters('SqlServerOnPrem_connectionString')]"
+					},
+					"SqlServerOnPrem1_connectionString": {
+						"value": "[parameters('SqlServerOnPrem1_connectionString')]"
 					}
 				}
 			},

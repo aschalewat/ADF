@@ -8,6 +8,18 @@
 		"AzureBlobStorageForADF_connectionString": {
 			"value": ""
 		},
+		"AzureBlobStorageOnPrem_connectionString": {
+			"value": ""
+		},
+		"PostgreSqlOnPrem_connectionString": {
+			"value": ""
+		},
+		"SqlServerOnPrem_connectionString": {
+			"value": ""
+		},
+		"SqlServerOnPrem1_connectionString": {
+			"value": ""
+		},
 		"containerUri": {
 			"value": ""
 		},
