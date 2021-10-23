@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\dataset",
+    "\\factory",
+    "\\integrationRuntime",
+    "\\linkedService",
+    "\\pipeline",
+    "\\trigger"
+  ],
+  "PreviewInSolutionExplorer": false
+}

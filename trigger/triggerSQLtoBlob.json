@@ -3,7 +3,7 @@
 	"properties": {
 		"annotations": [],
 		"runtimeState": "Started",
-		"pipelines": [
+		"pipelines": [ 
 			{
 				"pipelineReference": {
 					"referenceName": "Sql2Blob",
