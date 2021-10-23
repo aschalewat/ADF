@@ -2,11 +2,24 @@
 	"name": "SqlServerOnPrem",
 	"type": "Microsoft.DataFactory/factories/linkedservices",
 	"properties": {
+		"parameters": {
+			"serverName": {
+				"type": "string"
+			},
+			"dbName": {
+				"type": "string"
+			},
+			"user": {
+				"type": "string"
+			},
+			"password": {
+				"type": "string"
+			}
+		},
 		"annotations": [],
 		"type": "SqlServer",
 		"typeProperties": {
-			"connectionString": "integrated security=False;data source=DESKTOP-3SA6C5T;initial catalog=mymusic;user id=aschalew",
-			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI0MzE3OWUzZS00ZWU1LTQzZGQtOTYzZC03YjAyYjEzZWM0NjciLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+			"connectionString": "Integrated Security=False;Data Source=@{linkedService().serverName};Initial Catalog=@{linkedService().dbName};User ID=@{linkedService().user};Password=@{linkedService().password}"
 		},
 		"connectVia": {
 			"referenceName": "OnPremIR",
