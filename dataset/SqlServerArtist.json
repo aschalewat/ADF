@@ -1,0 +1,34 @@
+{
+	"name": "SqlServerArtist",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SqlServerOnPrem1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [
+			{
+				"name": "ArtistID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "FirstName",
+				"type": "varchar"
+			},
+			{
+				"name": "LastName",
+				"type": "varchar"
+			},
+			{
+				"name": "Town",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "Artist"
+		}
+	}
+}
