@@ -10,11 +10,11 @@
 					"type": "PipelineReference"
 				},
 				"parameters": {
-					"PL-serverName": "DESKTOP-3SA6C5T",
-					"PL-dbName": "mymusic",
-					"PL-user": "aschalew",
-					"PL-pass": "astes310569",
-					"PL-tableName": "Artist"
+					"PLtableName": "Album",
+					"PLserverName": "DESKTOP-3SA6C5T",
+					"PLdbName": "mymusic",
+					"PLuser": "aschalew",
+					"PLpassword": "astes310569"
 				}
 			}
 		],
