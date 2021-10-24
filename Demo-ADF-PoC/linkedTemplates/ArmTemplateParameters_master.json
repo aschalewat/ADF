@@ -11,7 +11,13 @@
 		"AzureBlobStorageOnPrem_connectionString": {
 			"value": ""
 		},
+		"AzureFileStorage1_connectionString": {
+			"value": ""
+		},
 		"PostgreSqlOnPrem_connectionString": {
+			"value": ""
+		},
+		"Sftp1_password": {
 			"value": ""
 		},
 		"SqlServerOnPrem_connectionString": {
@@ -19,6 +25,12 @@
 		},
 		"SqlServerOnPrem1_connectionString": {
 			"value": ""
+		},
+		"Sftp1_properties_typeProperties_host": {
+			"value": "localhost"
+		},
+		"Sftp1_properties_typeProperties_userName": {
+			"value": "aschalew"
 		},
 		"containerUri": {
 			"value": ""
