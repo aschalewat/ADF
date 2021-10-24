@@ -1,0 +1,21 @@
+{
+	"name": "DS_ZipCSVInput",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorageForADF",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "music.zip",
+				"container": "zipfiles"
+			},
+			"compression": {
+				"type": "ZipDeflate"
+			}
+		}
+	}
+}
