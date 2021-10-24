@@ -14,7 +14,11 @@
 					"type": "Expression"
 				},
 				"user": {
+<<<<<<< HEAD
 					"value": "@dataset().DSdbName",
+=======
+					"value": "@dataset().DSuser",
+>>>>>>> 3981270c6b8abd1089f37b81dcc31a6b6d346be8
 					"type": "Expression"
 				},
 				"password": {

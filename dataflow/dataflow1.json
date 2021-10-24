@@ -1,0 +1,67 @@
+{
+	"name": "dataflow1",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DS_TrackCSV",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_AlbumCSV",
+						"type": "DatasetReference"
+					},
+					"name": "source2"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_ArtistCSV",
+						"type": "DatasetReference"
+					},
+					"name": "source4"
+				}
+			],
+			"sinks": [
+				{
+					"name": "tracks"
+				},
+				{
+					"name": "albums"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_MusicJSON",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "Aggregate1"
+				},
+				{
+					"name": "DerivedColumn1"
+				},
+				{
+					"name": "DerivedColumn2"
+				},
+				{
+					"name": "Aggregate2"
+				},
+				{
+					"name": "Join1"
+				},
+				{
+					"name": "Join3"
+				}
+			],
+			"script": "source(output(\n\t\tTrackID as string,\n\t\tTrackName as string,\n\t\tDuration as string,\n\t\tAlbum as string,\n\t\tTrackURL as string,\n\t\tTrackPath as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> source1\nsource(output(\n\t\tAlbumID as string,\n\t\tAlbumName as string,\n\t\tReleaseDate as string,\n\t\tPrice as string,\n\t\tArtist as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> source2\nsource(output(\n\t\tArtistID as string,\n\t\tFirstName as string,\n\t\tLastName as string,\n\t\tTown as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> source4\nDerivedColumn1 aggregate(groupBy(Artist),\n\tAlbums = collect(Albums)) ~> Aggregate1\nJoin1 derive(Albums = @(AlbumName=AlbumName,\n\t\tReleaseDate=ReleaseDate,\n\t\tPrice=Price,\n\t\tTracks=Tracks,\n\t\tAlbumID=AlbumID)) ~> DerivedColumn1\nsource1 derive(Tracks = @(TrackID=TrackID,\n\t\tTrackName=TrackName,\n\t\tDuration=Duration,\n\t\tTrackURL=TrackURL,\n\t\tTrackPath=TrackPath)) ~> DerivedColumn2\nDerivedColumn2 aggregate(groupBy(Album),\n\tTracks = collect(Tracks)) ~> Aggregate2\nsource2, Aggregate2 join(AlbumID == Album,\n\tjoinType:'inner',\n\tbroadcast: 'auto')~> Join1\nsource4, Aggregate1 join(ArtistID == Artist,\n\tjoinType:'left',\n\tbroadcast: 'auto')~> Join3\nAggregate2 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tstore: 'cache',\n\tformat: 'inline',\n\toutput: false,\n\tsaveOrder: 1) ~> tracks\nAggregate1 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tstore: 'cache',\n\tformat: 'inline',\n\toutput: false,\n\tsaveOrder: 1) ~> albums\nJoin3 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\ttitle as string,\n\t\tprice as double,\n\t\tauthor_id as integer,\n\t\tcat_id as integer,\n\t\tdescription as string,\n\t\tbook_id as integer\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tmapColumn(\n\t\tArtistID,\n\t\tFirstName,\n\t\tLastName,\n\t\tTown,\n\t\tAlbums\n\t)) ~> sink1"
+		}
+	}
+}

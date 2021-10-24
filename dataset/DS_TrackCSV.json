@@ -1,0 +1,48 @@
+{
+	"name": "DS_TrackCSV",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorageForADF",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "Track.csv",
+				"container": "unzipped"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "TrackID",
+				"type": "String"
+			},
+			{
+				"name": "TrackName",
+				"type": "String"
+			},
+			{
+				"name": "Duration",
+				"type": "String"
+			},
+			{
+				"name": "Album",
+				"type": "String"
+			},
+			{
+				"name": "TrackURL",
+				"type": "String"
+			},
+			{
+				"name": "TrackPath",
+				"type": "String"
+			}
+		]
+	}
+}

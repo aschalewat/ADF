@@ -1,23 +1,17 @@
 {
-	"name": "DS_CSVArtist",
+	"name": "DS_UnzippedOutput",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureBlobStorageForADF",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
-		"type": "DelimitedText",
+		"type": "Binary",
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": "Artist.csv",
 				"container": "unzipped"
-			},
-			"columnDelimiter": ",",
-			"escapeChar": "\\",
-			"firstRowAsHeader": true,
-			"quoteChar": "\""
-		},
-		"schema": []
+			}
+		}
 	}
 }

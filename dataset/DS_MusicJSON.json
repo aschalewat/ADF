@@ -1,0 +1,40 @@
+{
+	"name": "DS_MusicJSON",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorageForADF",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"container": "music"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"title": {
+					"type": "string"
+				},
+				"price": {
+					"type": "number"
+				},
+				"author_id": {
+					"type": "integer"
+				},
+				"cat_id": {
+					"type": "integer"
+				},
+				"description": {
+					"type": "null"
+				},
+				"book_id": {
+					"type": "integer"
+				}
+			}
+		}
+	}
+}
