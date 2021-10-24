@@ -43,6 +43,26 @@
 			"type": "string",
 			"defaultValue": "aschalew"
 		},
+		"triggerSQLtoBlob_properties_Sql2Blob_parameters_PLtableName": {
+			"type": "string",
+			"defaultValue": "Album"
+		},
+		"triggerSQLtoBlob_properties_Sql2Blob_parameters_PLserverName": {
+			"type": "string",
+			"defaultValue": "DESKTOP-3SA6C5T"
+		},
+		"triggerSQLtoBlob_properties_Sql2Blob_parameters_PLdbName": {
+			"type": "string",
+			"defaultValue": "mymusic"
+		},
+		"triggerSQLtoBlob_properties_Sql2Blob_parameters_PLuser": {
+			"type": "string",
+			"defaultValue": "aschalew"
+		},
+		"triggerSQLtoBlob_properties_Sql2Blob_parameters_PLpassword": {
+			"type": "string",
+			"defaultValue": "astes310569"
+		},
 		"containerUri": {
 			"type": "string",
 			"metadata": "URI to storage account containing linked ARM templates"
@@ -114,6 +134,21 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
+					},
+					"triggerSQLtoBlob_properties_Sql2Blob_parameters_PLtableName": {
+						"value": "[parameters('triggerSQLtoBlob_properties_Sql2Blob_parameters_PLtableName')]"
+					},
+					"triggerSQLtoBlob_properties_Sql2Blob_parameters_PLserverName": {
+						"value": "[parameters('triggerSQLtoBlob_properties_Sql2Blob_parameters_PLserverName')]"
+					},
+					"triggerSQLtoBlob_properties_Sql2Blob_parameters_PLdbName": {
+						"value": "[parameters('triggerSQLtoBlob_properties_Sql2Blob_parameters_PLdbName')]"
+					},
+					"triggerSQLtoBlob_properties_Sql2Blob_parameters_PLuser": {
+						"value": "[parameters('triggerSQLtoBlob_properties_Sql2Blob_parameters_PLuser')]"
+					},
+					"triggerSQLtoBlob_properties_Sql2Blob_parameters_PLpassword": {
+						"value": "[parameters('triggerSQLtoBlob_properties_Sql2Blob_parameters_PLpassword')]"
 					}
 				}
 			},

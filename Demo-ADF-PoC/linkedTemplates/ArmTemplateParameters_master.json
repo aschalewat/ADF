@@ -32,6 +32,21 @@
 		"Sftp1_properties_typeProperties_userName": {
 			"value": "aschalew"
 		},
+		"triggerSQLtoBlob_properties_Sql2Blob_parameters_PLtableName": {
+			"value": "Album"
+		},
+		"triggerSQLtoBlob_properties_Sql2Blob_parameters_PLserverName": {
+			"value": "DESKTOP-3SA6C5T"
+		},
+		"triggerSQLtoBlob_properties_Sql2Blob_parameters_PLdbName": {
+			"value": "mymusic"
+		},
+		"triggerSQLtoBlob_properties_Sql2Blob_parameters_PLuser": {
+			"value": "aschalew"
+		},
+		"triggerSQLtoBlob_properties_Sql2Blob_parameters_PLpassword": {
+			"value": "astes310569"
+		},
 		"containerUri": {
 			"value": ""
 		},
