@@ -249,7 +249,7 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "Copy SQL to Blob",
+						"name": "Copy SQL to Blob Artist",
 						"type": "Copy",
 						"dependsOn": [],
 						"policy": {
@@ -519,7 +519,7 @@
 							"type": "Expression"
 						},
 						"user": {
-							"value": "@dataset().DSdbName",
+							"value": "@dataset().DSuser",
 							"type": "Expression"
 						},
 						"password": {

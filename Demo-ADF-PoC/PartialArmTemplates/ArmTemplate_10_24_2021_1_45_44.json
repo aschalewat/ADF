@@ -1,0 +1,172 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "Demo-ADF-PoC"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/Sql2Blob')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy SQL to Blob Artist",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "SqlServerSource",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "AzureBlobStorageWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".csv"
+								}
+							},
+							"enableStaging": false
+						},
+						"inputs": [
+							{
+								"referenceName": "SqlServerTable",
+								"type": "DatasetReference",
+								"parameters": {
+									"tableName": {
+										"value": "@pipeline().parameters.PLtableName",
+										"type": "Expression"
+									},
+									"DSserverName": {
+										"value": "@pipeline().parameters.PLserverName",
+										"type": "Expression"
+									},
+									"DSdbName": {
+										"value": "@pipeline().parameters.PLdbName",
+										"type": "Expression"
+									},
+									"DSuser": {
+										"value": "@pipeline().parameters.PLuser",
+										"type": "Expression"
+									},
+									"DSpassword": {
+										"value": "@pipeline().parameters.PLpassword",
+										"type": "Expression"
+									}
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "DS_CSVArtist",
+								"type": "DatasetReference"
+							}
+						]
+					}
+				],
+				"parameters": {
+					"PLtableName": {
+						"type": "string"
+					},
+					"PLserverName": {
+						"type": "string"
+					},
+					"PLdbName": {
+						"type": "string"
+					},
+					"PLuser": {
+						"type": "string"
+					},
+					"PLpassword": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "SQL2Blob"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/SqlServerTable')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SqlServerTable')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "SqlServerOnPrem",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"serverName": {
+							"value": "@dataset().DSserverName",
+							"type": "Expression"
+						},
+						"dbName": {
+							"value": "@dataset().DSdbName",
+							"type": "Expression"
+						},
+						"user": {
+							"value": "@dataset().DSuser",
+							"type": "Expression"
+						},
+						"password": {
+							"value": "@dataset().DSpassword",
+							"type": "Expression"
+						}
+					}
+				},
+				"parameters": {
+					"tableName": {
+						"type": "string"
+					},
+					"DSserverName": {
+						"type": "string"
+					},
+					"DSdbName": {
+						"type": "string"
+					},
+					"DSuser": {
+						"type": "string"
+					},
+					"DSpassword": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "SqlServerTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": {
+						"value": "@dataset().tableName",
+						"type": "Expression"
+					}
+				}
+			},
+			"dependsOn": []
+		}
+	]
+}
