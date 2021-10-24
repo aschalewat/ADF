@@ -1,5 +1,5 @@
 {
-	"name": "DS_CSVArtist",
+	"name": "DS_AlbumCSV",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureBlobStorageForADF",
@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": "Artist.csv",
+				"fileName": "Album.csv",
 				"container": "unzipped"
 			},
 			"columnDelimiter": ",",
@@ -18,6 +18,27 @@
 			"firstRowAsHeader": true,
 			"quoteChar": "\""
 		},
-		"schema": []
+		"schema": [
+			{
+				"name": "AlbumID",
+				"type": "String"
+			},
+			{
+				"name": "AlbumName",
+				"type": "String"
+			},
+			{
+				"name": "ReleaseDate",
+				"type": "String"
+			},
+			{
+				"name": "Price",
+				"type": "String"
+			},
+			{
+				"name": "Artist",
+				"type": "String"
+			}
+		]
 	}
 }
