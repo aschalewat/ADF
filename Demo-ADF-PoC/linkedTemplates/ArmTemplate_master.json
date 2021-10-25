@@ -19,6 +19,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureFileStorage1'"
 		},
+		"FileServer1_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'FileServer1'"
+		},
 		"PostgreSqlOnPrem_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'PostgreSqlOnPrem'"
@@ -34,6 +38,14 @@
 		"SqlServerOnPrem1_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'SqlServerOnPrem1'"
+		},
+		"FileServer1_properties_typeProperties_host": {
+			"type": "string",
+			"defaultValue": "E:\\AzureTraining\\FileShare"
+		},
+		"FileServer1_properties_typeProperties_userId": {
+			"type": "string",
+			"defaultValue": "aschalewat@yahoo.co.uk"
 		},
 		"Sftp1_properties_typeProperties_host": {
 			"type": "string",
@@ -99,6 +111,9 @@
 					"AzureFileStorage1_connectionString": {
 						"value": "[parameters('AzureFileStorage1_connectionString')]"
 					},
+					"FileServer1_password": {
+						"value": "[parameters('FileServer1_password')]"
+					},
 					"PostgreSqlOnPrem_connectionString": {
 						"value": "[parameters('PostgreSqlOnPrem_connectionString')]"
 					},
@@ -110,6 +125,12 @@
 					},
 					"SqlServerOnPrem1_connectionString": {
 						"value": "[parameters('SqlServerOnPrem1_connectionString')]"
+					},
+					"FileServer1_properties_typeProperties_host": {
+						"value": "[parameters('FileServer1_properties_typeProperties_host')]"
+					},
+					"FileServer1_properties_typeProperties_userId": {
+						"value": "[parameters('FileServer1_properties_typeProperties_userId')]"
 					},
 					"Sftp1_properties_typeProperties_host": {
 						"value": "[parameters('Sftp1_properties_typeProperties_host')]"
