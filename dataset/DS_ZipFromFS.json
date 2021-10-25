@@ -1,0 +1,20 @@
+{
+	"name": "DS_ZipFromFS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "FileServer1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "FileServerLocation",
+				"fileName": "music.zip"
+			},
+			"compression": {
+				"type": "ZipDeflate"
+			}
+		}
+	}
+}

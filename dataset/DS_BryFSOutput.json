@@ -1,0 +1,18 @@
+{
+	"name": "DS_BryFSOutput",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorageForADF",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"folderPath": "fromFS",
+				"container": "unzipped"
+			}
+		}
+	}
+}
