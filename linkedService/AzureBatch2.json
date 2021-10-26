@@ -1,0 +1,16 @@
+{
+	"name": "AzureBatch2",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBatch",
+		"typeProperties": {
+			"batchUri": "https://itkbatch.ukwest.batch.azure.com",
+			"poolName": "itkpool",
+			"accountName": "itkbatch",
+			"linkedServiceName": {
+				"referenceName": "AzureBlobStorageForADF",
+				"type": "LinkedServiceReference"
+			}
+		}
+	}
+}
