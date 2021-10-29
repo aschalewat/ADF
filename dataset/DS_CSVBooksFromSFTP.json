@@ -2,19 +2,20 @@
 	"name": "DS_CSVBooksFromSFTP",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "Sftp1",
+			"referenceName": "FtpServer1",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
 			"location": {
-				"type": "SftpLocation",
-				"fileName": "*.csv",
-				"folderPath": "/abc"
+				"type": "FtpServerLocation",
+				"fileName": "books.csv",
+				"folderPath": "books"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
+			"firstRowAsHeader": true,
 			"quoteChar": "\""
 		},
 		"schema": []
