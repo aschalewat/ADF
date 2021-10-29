@@ -1,0 +1,9 @@
+{
+	"name": "BatchService",
+	"properties": {
+		"folder": {
+			"name": "BatchProcesses"
+		},
+		"annotations": []
+	}
+}
