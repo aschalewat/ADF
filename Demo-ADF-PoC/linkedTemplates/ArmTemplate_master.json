@@ -7,6 +7,14 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "Demo-ADF-PoC"
 		},
+		"AzureBatch1_accessKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accessKey' of 'AzureBatch1'"
+		},
+		"AzureBatch2_accessKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accessKey' of 'AzureBatch2'"
+		},
 		"AzureBlobStorageForADF_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorageForADF'"
@@ -22,6 +30,10 @@
 		"FileServer1_password": {
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'FileServer1'"
+		},
+		"FtpServer1_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'FtpServer1'"
 		},
 		"PostgreSqlOnPrem_connectionString": {
 			"type": "secureString",
@@ -39,6 +51,30 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'SqlServerOnPrem1'"
 		},
+		"AzureBatch1_properties_typeProperties_batchUri": {
+			"type": "string",
+			"defaultValue": "https://itkbatch.ukwest.batch.azure.com"
+		},
+		"AzureBatch1_properties_typeProperties_poolName": {
+			"type": "string",
+			"defaultValue": "itkpool"
+		},
+		"AzureBatch1_properties_typeProperties_accountName": {
+			"type": "string",
+			"defaultValue": "itkbatch"
+		},
+		"AzureBatch2_properties_typeProperties_batchUri": {
+			"type": "string",
+			"defaultValue": "https://itkbatch.ukwest.batch.azure.com"
+		},
+		"AzureBatch2_properties_typeProperties_poolName": {
+			"type": "string",
+			"defaultValue": "itkpool"
+		},
+		"AzureBatch2_properties_typeProperties_accountName": {
+			"type": "string",
+			"defaultValue": "itkbatch"
+		},
 		"FileServer1_properties_typeProperties_host": {
 			"type": "string",
 			"defaultValue": "E:\\AzureTraining\\FileShare"
@@ -47,9 +83,17 @@
 			"type": "string",
 			"defaultValue": "aschalewat@yahoo.co.uk"
 		},
-		"Sftp1_properties_typeProperties_host": {
+		"FtpServer1_properties_typeProperties_host": {
 			"type": "string",
 			"defaultValue": "localhost"
+		},
+		"FtpServer1_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "aschalew"
+		},
+		"Sftp1_properties_typeProperties_host": {
+			"type": "string",
+			"defaultValue": "192.168.1.119"
 		},
 		"Sftp1_properties_typeProperties_userName": {
 			"type": "string",
@@ -105,6 +149,9 @@
 					"AzureBlobStorageForADF_connectionString": {
 						"value": "[parameters('AzureBlobStorageForADF_connectionString')]"
 					},
+					"AzureBatch2_accessKey": {
+						"value": "[parameters('AzureBatch2_accessKey')]"
+					},
 					"AzureBlobStorageOnPrem_connectionString": {
 						"value": "[parameters('AzureBlobStorageOnPrem_connectionString')]"
 					},
@@ -113,6 +160,9 @@
 					},
 					"FileServer1_password": {
 						"value": "[parameters('FileServer1_password')]"
+					},
+					"FtpServer1_password": {
+						"value": "[parameters('FtpServer1_password')]"
 					},
 					"PostgreSqlOnPrem_connectionString": {
 						"value": "[parameters('PostgreSqlOnPrem_connectionString')]"
@@ -123,14 +173,26 @@
 					"SqlServerOnPrem_connectionString": {
 						"value": "[parameters('SqlServerOnPrem_connectionString')]"
 					},
-					"SqlServerOnPrem1_connectionString": {
-						"value": "[parameters('SqlServerOnPrem1_connectionString')]"
+					"AzureBatch2_properties_typeProperties_batchUri": {
+						"value": "[parameters('AzureBatch2_properties_typeProperties_batchUri')]"
+					},
+					"AzureBatch2_properties_typeProperties_poolName": {
+						"value": "[parameters('AzureBatch2_properties_typeProperties_poolName')]"
+					},
+					"AzureBatch2_properties_typeProperties_accountName": {
+						"value": "[parameters('AzureBatch2_properties_typeProperties_accountName')]"
 					},
 					"FileServer1_properties_typeProperties_host": {
 						"value": "[parameters('FileServer1_properties_typeProperties_host')]"
 					},
 					"FileServer1_properties_typeProperties_userId": {
 						"value": "[parameters('FileServer1_properties_typeProperties_userId')]"
+					},
+					"FtpServer1_properties_typeProperties_host": {
+						"value": "[parameters('FtpServer1_properties_typeProperties_host')]"
+					},
+					"FtpServer1_properties_typeProperties_userName": {
+						"value": "[parameters('FtpServer1_properties_typeProperties_userName')]"
 					},
 					"Sftp1_properties_typeProperties_host": {
 						"value": "[parameters('Sftp1_properties_typeProperties_host')]"
@@ -155,6 +217,21 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
+					},
+					"SqlServerOnPrem1_connectionString": {
+						"value": "[parameters('SqlServerOnPrem1_connectionString')]"
+					},
+					"AzureBatch1_accessKey": {
+						"value": "[parameters('AzureBatch1_accessKey')]"
+					},
+					"AzureBatch1_properties_typeProperties_batchUri": {
+						"value": "[parameters('AzureBatch1_properties_typeProperties_batchUri')]"
+					},
+					"AzureBatch1_properties_typeProperties_poolName": {
+						"value": "[parameters('AzureBatch1_properties_typeProperties_poolName')]"
+					},
+					"AzureBatch1_properties_typeProperties_accountName": {
+						"value": "[parameters('AzureBatch1_properties_typeProperties_accountName')]"
 					},
 					"triggerSQLtoBlob_properties_Sql2Blob_parameters_PLtableName": {
 						"value": "[parameters('triggerSQLtoBlob_properties_Sql2Blob_parameters_PLtableName')]"

@@ -5,6 +5,12 @@
 		"factoryName": {
 			"value": "Demo-ADF-PoC"
 		},
+		"AzureBatch1_accessKey": {
+			"value": ""
+		},
+		"AzureBatch2_accessKey": {
+			"value": ""
+		},
 		"AzureBlobStorageForADF_connectionString": {
 			"value": ""
 		},
@@ -15,6 +21,9 @@
 			"value": ""
 		},
 		"FileServer1_password": {
+			"value": ""
+		},
+		"FtpServer1_password": {
 			"value": ""
 		},
 		"PostgreSqlOnPrem_connectionString": {
@@ -29,14 +38,38 @@
 		"SqlServerOnPrem1_connectionString": {
 			"value": ""
 		},
+		"AzureBatch1_properties_typeProperties_batchUri": {
+			"value": "https://itkbatch.ukwest.batch.azure.com"
+		},
+		"AzureBatch1_properties_typeProperties_poolName": {
+			"value": "itkpool"
+		},
+		"AzureBatch1_properties_typeProperties_accountName": {
+			"value": "itkbatch"
+		},
+		"AzureBatch2_properties_typeProperties_batchUri": {
+			"value": "https://itkbatch.ukwest.batch.azure.com"
+		},
+		"AzureBatch2_properties_typeProperties_poolName": {
+			"value": "itkpool"
+		},
+		"AzureBatch2_properties_typeProperties_accountName": {
+			"value": "itkbatch"
+		},
 		"FileServer1_properties_typeProperties_host": {
 			"value": "E:\\AzureTraining\\FileShare"
 		},
 		"FileServer1_properties_typeProperties_userId": {
 			"value": "aschalewat@yahoo.co.uk"
 		},
-		"Sftp1_properties_typeProperties_host": {
+		"FtpServer1_properties_typeProperties_host": {
 			"value": "localhost"
+		},
+		"FtpServer1_properties_typeProperties_userName": {
+			"value": "aschalew"
+		},
+		"Sftp1_properties_typeProperties_host": {
+			"value": "192.168.1.119"
 		},
 		"Sftp1_properties_typeProperties_userName": {
 			"value": "aschalew"
