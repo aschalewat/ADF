@@ -5,12 +5,12 @@
 		"annotations": [],
 		"type": "Sftp",
 		"typeProperties": {
-			"host": "localhost",
+			"host": "192.168.1.119",
 			"port": "21",
 			"skipHostKeyValidation": true,
 			"authenticationType": "Basic",
 			"userName": "aschalew",
-			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiIwZjMzNDAzNC1kODVjLTRkMjQtYTcwNC03Y2Y0MjNiYWFlZjkiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI3NGQxN2RiMi04MGVmLTQ1MDgtOGVkMC0yMGVmZjRiM2FkMDkiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
 		},
 		"connectVia": {
 			"referenceName": "OnPremIR",
