@@ -5,9 +5,8 @@
 		"annotations": [],
 		"type": "SqlServer",
 		"typeProperties": {
-			"connectionString": "integrated security=True;data source=DESKTOP-3SA6C5T;initial catalog=Azure",
-			"userName": "aschalew",
-			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJlZGVkY2U5ZS02Zjc0LTRjYmUtODhmZC1iYWQ1ZGEzYmI2NmUiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+			"connectionString": "integrated security=False;data source=DESKTOP-3SA6C5T;initial catalog=azure;user id=aschalew",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJhZTg0Y2FlNi04ZWViLTRmMmMtYjJiYi02YjBiMDFjZjM3ZTciLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
 		},
 		"connectVia": {
 			"referenceName": "OnPremIR",
