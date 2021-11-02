@@ -39,6 +39,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'PostgreSqlOnPrem'"
 		},
+		"SQlServeronPremAzure_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'SQlServeronPremAzure'"
+		},
 		"Sftp1_password": {
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'Sftp1'"
@@ -167,11 +171,11 @@
 					"PostgreSqlOnPrem_connectionString": {
 						"value": "[parameters('PostgreSqlOnPrem_connectionString')]"
 					},
+					"SQlServeronPremAzure_connectionString": {
+						"value": "[parameters('SQlServeronPremAzure_connectionString')]"
+					},
 					"Sftp1_password": {
 						"value": "[parameters('Sftp1_password')]"
-					},
-					"SqlServerOnPrem_connectionString": {
-						"value": "[parameters('SqlServerOnPrem_connectionString')]"
 					},
 					"AzureBatch2_properties_typeProperties_batchUri": {
 						"value": "[parameters('AzureBatch2_properties_typeProperties_batchUri')]"
@@ -217,6 +221,9 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
+					},
+					"SqlServerOnPrem_connectionString": {
+						"value": "[parameters('SqlServerOnPrem_connectionString')]"
 					},
 					"SqlServerOnPrem1_connectionString": {
 						"value": "[parameters('SqlServerOnPrem1_connectionString')]"

@@ -29,6 +29,9 @@
 		"PostgreSqlOnPrem_connectionString": {
 			"value": ""
 		},
+		"SQlServeronPremAzure_connectionString": {
+			"value": ""
+		},
 		"Sftp1_password": {
 			"value": ""
 		},
