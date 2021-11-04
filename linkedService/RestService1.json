@@ -1,0 +1,25 @@
+{
+	"name": "RestService1",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "RestService",
+		"typeProperties": {
+			"url": "https://prime.savethechildren.net/authservice/v1/prime/oauth",
+			"enableServerCertificateValidation": true,
+			"authenticationType": "Basic",
+			"userName": "integration",
+			"authHeaders": {
+				"Client ID": {
+					"type": "SecureString",
+					"value": "**********"
+				},
+				"Client Secret": {
+					"type": "SecureString",
+					"value": "**********"
+				}
+			},
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQEVCREI0NzBELTZCNDAtNEFEOS04NEY4LTExRDRDMzBENDU3Ql9kZTIyNmI2MC0wMzc0LTQ3MzMtYjM3ZS0xYTlkMDFkNmI0OTEiDQp9"
+		}
+	}
+}
