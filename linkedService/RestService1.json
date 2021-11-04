@@ -5,7 +5,7 @@
 		"annotations": [],
 		"type": "RestService",
 		"typeProperties": {
-			"url": "https://prime.savethechildren.net/authservice/v1/prime/oauth/token?grant_type=password",
+			"url": "https://prime.savethechildren.net",
 			"enableServerCertificateValidation": true,
 			"authenticationType": "Anonymous",
 			"authHeaders": {
