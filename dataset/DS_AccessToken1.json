@@ -7,6 +7,9 @@
 		},
 		"annotations": [],
 		"type": "RestResource",
+		"typeProperties": {
+			"relativeUrl": "/authservice/v1/prime/oauth/token?grant_type=password"
+		},
 		"schema": []
 	}
 }
