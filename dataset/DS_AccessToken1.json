@@ -8,7 +8,7 @@
 		"annotations": [],
 		"type": "RestResource",
 		"typeProperties": {
-			"relativeUrl": "/authservice/v1/prime/oauth/token?grant_type=password"
+			"relativeUrl": "/authservice/v1/prime/oauth/token?grant_type=password&username=integration&password=SCI1234567!"
 		},
 		"schema": []
 	}
