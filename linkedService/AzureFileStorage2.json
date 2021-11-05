@@ -1,0 +1,17 @@
+{
+	"name": "AzureFileStorage2",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureFileStorage",
+		"typeProperties": {
+			"host": "C:\\1-Projects\\SCI\\Azure\\scripts",
+			"userId": "a.tessema@reply.com",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI5NzI0ODgzZS1kYWU2LTRkMjEtYThmOC01NDA4OWUyNWUxMjAiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "OnPremLaptop",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
