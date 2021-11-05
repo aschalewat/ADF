@@ -1,0 +1,6 @@
+{
+	"name": "OnPremLaptop",
+	"properties": {
+		"type": "SelfHosted"
+	}
+}
