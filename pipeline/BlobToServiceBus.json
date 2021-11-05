@@ -1,0 +1,39 @@
+{
+	"name": "BlobToServiceBus",
+	"properties": {
+		"activities": [
+			{
+				"name": "Web1",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": "https://adf-servicebus.servicebus.windows.net",
+					"method": "POST",
+					"headers": {
+						"CustomHeader-Version": "1.0",
+						"Content-Type": "application/json",
+						"BrokerProperties": {
+							"value": "@concat('{\"CorrelationId\":\",pipeline().RunId\"}')",
+							"type": "Expression"
+						}
+					},
+					"body": {
+						"message": "Hello World"
+					}
+				}
+			}
+		],
+		"folder": {
+			"name": "ServiceBus"
+		},
+		"annotations": []
+	}
+}

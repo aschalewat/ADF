@@ -1,0 +1,45 @@
+{
+	"name": "Batchservice2",
+	"properties": {
+		"activities": [
+			{
+				"name": "Custom1",
+				"type": "Custom",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"command": "aribafiletransfer.bat ImportReceipts.bat",
+					"resourceLinkedService": {
+						"referenceName": "AzureBlobStorageForADF",
+						"type": "LinkedServiceReference"
+					},
+					"folderPath": "aribascripts/bin",
+					"referenceObjects": {
+						"linkedServices": [
+							{
+								"referenceName": "AzureBlobStorageForADF",
+								"type": "LinkedServiceReference"
+							}
+						],
+						"datasets": []
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "AzureBatch2",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"folder": {
+			"name": "BatchProcesses"
+		},
+		"annotations": []
+	}
+}
