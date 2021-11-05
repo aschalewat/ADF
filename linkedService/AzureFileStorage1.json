@@ -5,9 +5,9 @@
 		"annotations": [],
 		"type": "AzureFileStorage",
 		"typeProperties": {
-			"connectionString": "DefaultEndpointsProtocol=https;AccountName=adfstorageaccount123;EndpointSuffix=core.windows.net;",
-			"fileShare": "aftfileshare",
-			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiIxNzZiMTEwYi1jYTYzLTQzZGQtYmJlYy0zNTUzNGEzMjk4NGQiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+			"host": "C:\\1-Projects\\SCI\\Azure\\scripts",
+			"userId": "aschalewat@yahoo.co.uk",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJjNjY0Mzk3NC04ODhiLTRjM2QtODE3OS03MzQyOWUzMjFjMWMiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
 		},
 		"connectVia": {
 			"referenceName": "OnPremIR",
