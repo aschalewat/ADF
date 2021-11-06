@@ -23,9 +23,13 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorageOnPrem'"
 		},
-		"AzureFileStorage1_connectionString": {
+		"AzureFileStorage1_password": {
 			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'AzureFileStorage1'"
+			"metadata": "Secure string for 'password' of 'AzureFileStorage1'"
+		},
+		"AzureFileStorage2_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'AzureFileStorage2'"
 		},
 		"FileServer1_password": {
 			"type": "secureString",
@@ -79,6 +83,22 @@
 			"type": "string",
 			"defaultValue": "itkbatch"
 		},
+		"AzureFileStorage1_properties_typeProperties_host": {
+			"type": "string",
+			"defaultValue": "C:\\1-Projects\\SCI\\Azure\\scripts"
+		},
+		"AzureFileStorage1_properties_typeProperties_userId": {
+			"type": "string",
+			"defaultValue": "aschalewat@yahoo.co.uk"
+		},
+		"AzureFileStorage2_properties_typeProperties_host": {
+			"type": "string",
+			"defaultValue": "C:\\1-Projects\\SCI\\Azure\\scripts"
+		},
+		"AzureFileStorage2_properties_typeProperties_userId": {
+			"type": "string",
+			"defaultValue": "a.tessema@reply.com"
+		},
 		"FileServer1_properties_typeProperties_host": {
 			"type": "string",
 			"defaultValue": "E:\\AzureTraining\\FileShare"
@@ -94,6 +114,10 @@
 		"FtpServer1_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "aschalew"
+		},
+		"RestService1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://prime.savethechildren.net"
 		},
 		"Sftp1_properties_typeProperties_host": {
 			"type": "string",
@@ -156,11 +180,44 @@
 					"AzureBatch2_accessKey": {
 						"value": "[parameters('AzureBatch2_accessKey')]"
 					},
+					"RestService1_properties_typeProperties_url": {
+						"value": "[parameters('RestService1_properties_typeProperties_url')]"
+					},
+					"AzureBatch2_properties_typeProperties_batchUri": {
+						"value": "[parameters('AzureBatch2_properties_typeProperties_batchUri')]"
+					},
+					"AzureBatch2_properties_typeProperties_poolName": {
+						"value": "[parameters('AzureBatch2_properties_typeProperties_poolName')]"
+					},
+					"AzureBatch2_properties_typeProperties_accountName": {
+						"value": "[parameters('AzureBatch2_properties_typeProperties_accountName')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "Demo-ADF-PoC_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
 					"AzureBlobStorageOnPrem_connectionString": {
 						"value": "[parameters('AzureBlobStorageOnPrem_connectionString')]"
 					},
-					"AzureFileStorage1_connectionString": {
-						"value": "[parameters('AzureFileStorage1_connectionString')]"
+					"AzureFileStorage1_password": {
+						"value": "[parameters('AzureFileStorage1_password')]"
+					},
+					"AzureFileStorage2_password": {
+						"value": "[parameters('AzureFileStorage2_password')]"
 					},
 					"FileServer1_password": {
 						"value": "[parameters('FileServer1_password')]"
@@ -177,14 +234,23 @@
 					"Sftp1_password": {
 						"value": "[parameters('Sftp1_password')]"
 					},
-					"AzureBatch2_properties_typeProperties_batchUri": {
-						"value": "[parameters('AzureBatch2_properties_typeProperties_batchUri')]"
+					"SqlServerOnPrem_connectionString": {
+						"value": "[parameters('SqlServerOnPrem_connectionString')]"
 					},
-					"AzureBatch2_properties_typeProperties_poolName": {
-						"value": "[parameters('AzureBatch2_properties_typeProperties_poolName')]"
+					"SqlServerOnPrem1_connectionString": {
+						"value": "[parameters('SqlServerOnPrem1_connectionString')]"
 					},
-					"AzureBatch2_properties_typeProperties_accountName": {
-						"value": "[parameters('AzureBatch2_properties_typeProperties_accountName')]"
+					"AzureFileStorage1_properties_typeProperties_host": {
+						"value": "[parameters('AzureFileStorage1_properties_typeProperties_host')]"
+					},
+					"AzureFileStorage1_properties_typeProperties_userId": {
+						"value": "[parameters('AzureFileStorage1_properties_typeProperties_userId')]"
+					},
+					"AzureFileStorage2_properties_typeProperties_host": {
+						"value": "[parameters('AzureFileStorage2_properties_typeProperties_host')]"
+					},
+					"AzureFileStorage2_properties_typeProperties_userId": {
+						"value": "[parameters('AzureFileStorage2_properties_typeProperties_userId')]"
 					},
 					"FileServer1_properties_typeProperties_host": {
 						"value": "[parameters('FileServer1_properties_typeProperties_host')]"
@@ -206,27 +272,23 @@
 					}
 				}
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'Demo-ADF-PoC_ArmTemplate_0')]"
+			]
 		},
 		{
-			"name": "Demo-ADF-PoC_ArmTemplate_1",
+			"name": "Demo-ADF-PoC_ArmTemplate_2",
 			"type": "Microsoft.Resources/deployments",
 			"apiVersion": "2018-02-01",
 			"properties": {
 				"mode": "incremental",
 				"templateLink": {
-					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_2.json', parameters('containerSasToken'))]",
 					"contentVersion": "1.0.0.0"
 				},
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
-					},
-					"SqlServerOnPrem_connectionString": {
-						"value": "[parameters('SqlServerOnPrem_connectionString')]"
-					},
-					"SqlServerOnPrem1_connectionString": {
-						"value": "[parameters('SqlServerOnPrem1_connectionString')]"
 					},
 					"AzureBatch1_accessKey": {
 						"value": "[parameters('AzureBatch1_accessKey')]"
@@ -258,7 +320,7 @@
 				}
 			},
 			"dependsOn": [
-				"[resourceId('Microsoft.Resources/deployments', 'Demo-ADF-PoC_ArmTemplate_0')]"
+				"[resourceId('Microsoft.Resources/deployments', 'Demo-ADF-PoC_ArmTemplate_1')]"
 			]
 		}
 	]

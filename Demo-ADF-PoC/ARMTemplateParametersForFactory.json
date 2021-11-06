@@ -17,7 +17,10 @@
 		"AzureBlobStorageOnPrem_connectionString": {
 			"value": ""
 		},
-		"AzureFileStorage1_connectionString": {
+		"AzureFileStorage1_password": {
+			"value": ""
+		},
+		"AzureFileStorage2_password": {
 			"value": ""
 		},
 		"FileServer1_password": {
@@ -59,6 +62,18 @@
 		"AzureBatch2_properties_typeProperties_accountName": {
 			"value": "itkbatch"
 		},
+		"AzureFileStorage1_properties_typeProperties_host": {
+			"value": "C:\\1-Projects\\SCI\\Azure\\scripts"
+		},
+		"AzureFileStorage1_properties_typeProperties_userId": {
+			"value": "aschalewat@yahoo.co.uk"
+		},
+		"AzureFileStorage2_properties_typeProperties_host": {
+			"value": "C:\\1-Projects\\SCI\\Azure\\scripts"
+		},
+		"AzureFileStorage2_properties_typeProperties_userId": {
+			"value": "a.tessema@reply.com"
+		},
 		"FileServer1_properties_typeProperties_host": {
 			"value": "E:\\AzureTraining\\FileShare"
 		},
@@ -70,6 +85,9 @@
 		},
 		"FtpServer1_properties_typeProperties_userName": {
 			"value": "aschalew"
+		},
+		"RestService1_properties_typeProperties_url": {
+			"value": "https://prime.savethechildren.net"
 		},
 		"Sftp1_properties_typeProperties_host": {
 			"value": "192.168.1.119"
