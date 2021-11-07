@@ -1,0 +1,49 @@
+{
+	"name": "DS_ASBJsonOutput",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorageForADF",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"container": "output"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"bookId": {
+					"type": "string"
+				},
+				"title": {
+					"type": "string"
+				},
+				"price": {
+					"type": "null"
+				},
+				"catId": {
+					"type": "string"
+				},
+				"authorId": {
+					"type": "string"
+				},
+				"author_id": {
+					"type": "integer"
+				},
+				"cat_id": {
+					"type": "integer"
+				},
+				"description": {
+					"type": "null"
+				},
+				"book_id": {
+					"type": "integer"
+				}
+			}
+		}
+	}
+}

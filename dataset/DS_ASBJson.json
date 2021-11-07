@@ -1,0 +1,19 @@
+{
+	"name": "DS_ASBJson",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorageForADF",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "*.json",
+				"container": "asbinputs"
+			}
+		},
+		"schema": {}
+	}
+}

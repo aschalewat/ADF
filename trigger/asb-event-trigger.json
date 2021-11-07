@@ -1,0 +1,24 @@
+{
+	"name": "asb-event-trigger",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "QueueToBlob",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "CustomEventsTrigger",
+		"typeProperties": {
+			"subjectEndsWith": "i",
+			"subjectBeginsWith": "s",
+			"scope": "/subscriptions/f7fa15ba-3af7-42f7-8108-ebc0c95ca037/resourceGroups/LearnADF/providers/Microsoft.EventGrid/topics/scieg",
+			"events": [
+				"test"
+			]
+		}
+	}
+}
