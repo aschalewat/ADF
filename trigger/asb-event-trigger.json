@@ -13,8 +13,8 @@
 		],
 		"type": "CustomEventsTrigger",
 		"typeProperties": {
-			"subjectEndsWith": "i",
-			"subjectBeginsWith": "s",
+			"subjectEndsWith": "",
+			"subjectBeginsWith": "",
 			"scope": "/subscriptions/f7fa15ba-3af7-42f7-8108-ebc0c95ca037/resourceGroups/LearnADF/providers/Microsoft.EventGrid/topics/scieg",
 			"events": [
 				"test"
