@@ -131,6 +131,10 @@
 			"type": "string",
 			"defaultValue": "/subscriptions/f7fa15ba-3af7-42f7-8108-ebc0c95ca037/resourceGroups/LearnADF/providers/Microsoft.EventGrid/topics/scieg"
 		},
+		"trigger1_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/f7fa15ba-3af7-42f7-8108-ebc0c95ca037/resourceGroups/LearnADF/providers/Microsoft.Storage/storageAccounts/adfstorageaccount123"
+		},
 		"triggerSQLtoBlob_properties_Sql2Blob_parameters_PLtableName": {
 			"type": "string",
 			"defaultValue": "Album"
@@ -150,10 +154,6 @@
 		"triggerSQLtoBlob_properties_Sql2Blob_parameters_PLpassword": {
 			"type": "string",
 			"defaultValue": "astes310569"
-		},
-		"trigger1_properties_typeProperties_scope": {
-			"type": "string",
-			"defaultValue": "/subscriptions/f7fa15ba-3af7-42f7-8108-ebc0c95ca037/resourceGroups/LearnADF/providers/Microsoft.Storage/storageAccounts/adfstorageaccount123"
 		}
 	},
 	"variables": {
@@ -485,7 +485,14 @@
 					{
 						"name": "Web1",
 						"type": "WebActivity",
-						"dependsOn": [],
+						"dependsOn": [
+							{
+								"activity": "Copy csv to json_copy1",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
 						"policy": {
 							"timeout": "7.00:00:00",
 							"retry": 0,
@@ -501,10 +508,108 @@
 								"CustomHeader-Version": "1.0",
 								"Content-Type": "application/json"
 							},
-							"body": {
-								"message": "Hello World"
-							}
+							"body": [
+								{
+									"bookId": "1",
+									"title": "C++",
+									"price": "9.9",
+									"catId": "1",
+									"authorId": "1"
+								},
+								{
+									"bookId": "2",
+									"title": "Java",
+									"price": "19.9",
+									"catId": "1",
+									"authorId": "1"
+								},
+								{
+									"bookId": "3",
+									"title": "MySQL",
+									"price": "29.99",
+									"catId": "4",
+									"authorId": "3"
+								},
+								{
+									"bookId": "4",
+									"title": "Surfing The Internet",
+									"price": "9.9",
+									"catId": "3",
+									"authorId": "1"
+								},
+								{
+									"bookId": "5",
+									"title": "J++",
+									"price": "19.9",
+									"catId": "1",
+									"authorId": "1"
+								}
+							],
+							"linkedServices": [
+								{
+									"referenceName": "AzureBlobStorageForADF",
+									"type": "LinkedServiceReference"
+								}
+							],
+							"datasets": [
+								{
+									"referenceName": "DS_JSONBooks",
+									"type": "DatasetReference",
+									"parameters": {}
+								}
+							]
 						}
+					},
+					{
+						"name": "Copy csv to json_copy1",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobStorageReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "JsonSink",
+								"storeSettings": {
+									"type": "AzureBlobStorageWriteSettings"
+								},
+								"formatSettings": {
+									"type": "JsonWriteSettings",
+									"filePattern": "arrayOfObjects"
+								}
+							},
+							"enableStaging": false
+						},
+						"inputs": [
+							{
+								"referenceName": "DS_CSVBooks",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "DS_JSONBooks",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
 					}
 				],
 				"policy": {
@@ -516,7 +621,11 @@
 				},
 				"annotations": []
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorageForADF')]",
+				"[concat(variables('factoryId'), '/datasets/DS_JSONBooks')]",
+				"[concat(variables('factoryId'), '/datasets/DS_CSVBooks')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/CSV2JSONHierarchial')]",
@@ -2370,6 +2479,37 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/trigger1')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "QueueToBlob",
+							"type": "PipelineReference"
+						},
+						"parameters": {}
+					}
+				],
+				"type": "BlobEventsTrigger",
+				"typeProperties": {
+					"blobPathBeginsWith": "/asbinputs/blobs/",
+					"blobPathEndsWith": "json",
+					"ignoreEmptyBlobs": true,
+					"scope": "[parameters('trigger1_properties_typeProperties_scope')]",
+					"events": [
+						"Microsoft.Storage.BlobCreated"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/QueueToBlob')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/triggerSQLtoBlob')]",
 			"type": "Microsoft.DataFactory/factories/triggers",
 			"apiVersion": "2018-06-01",
@@ -2512,37 +2652,6 @@
 				"[concat(variables('factoryId'), '/datasets/DS_AlbumCSV')]",
 				"[concat(variables('factoryId'), '/datasets/DS_ArtistCSV')]",
 				"[concat(variables('factoryId'), '/datasets/DS_MusicJSON')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/trigger1')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"runtimeState": "Started",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "QueueToBlob",
-							"type": "PipelineReference"
-						},
-						"parameters": {}
-					}
-				],
-				"type": "BlobEventsTrigger",
-				"typeProperties": {
-					"blobPathBeginsWith": "/asbinputs/blobs/",
-					"blobPathEndsWith": "json",
-					"ignoreEmptyBlobs": true,
-					"scope": "[parameters('trigger1_properties_typeProperties_scope')]",
-					"events": [
-						"Microsoft.Storage.BlobCreated"
-					]
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/QueueToBlob')]"
 			]
 		}
 	]

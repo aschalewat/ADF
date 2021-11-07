@@ -109,30 +109,6 @@
 	},
 	"resources": [
 		{
-			"name": "[concat(parameters('factoryName'), '/DS_ZipCSVInput')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureBlobStorageForADF",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "Binary",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"fileName": "music.zip",
-						"container": "zipfiles"
-					},
-					"compression": {
-						"type": "ZipDeflate"
-					}
-				}
-			},
-			"dependsOn": []
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/AzureBatch2')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -680,6 +656,153 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/BlobToServiceBus')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Web1",
+						"type": "WebActivity",
+						"dependsOn": [
+							{
+								"activity": "Copy csv to json_copy1",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": "https://prod-01.ukwest.logic.azure.com:443/workflows/3881612def904b72922fd8fb78cf7c9c/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=ydjPm72C54W023XYo-d9MNKVSP-IJHlBSoLWiO5LyMg",
+							"method": "POST",
+							"headers": {
+								"CustomHeader-Version": "1.0",
+								"Content-Type": "application/json"
+							},
+							"body": [
+								{
+									"bookId": "1",
+									"title": "C++",
+									"price": "9.9",
+									"catId": "1",
+									"authorId": "1"
+								},
+								{
+									"bookId": "2",
+									"title": "Java",
+									"price": "19.9",
+									"catId": "1",
+									"authorId": "1"
+								},
+								{
+									"bookId": "3",
+									"title": "MySQL",
+									"price": "29.99",
+									"catId": "4",
+									"authorId": "3"
+								},
+								{
+									"bookId": "4",
+									"title": "Surfing The Internet",
+									"price": "9.9",
+									"catId": "3",
+									"authorId": "1"
+								},
+								{
+									"bookId": "5",
+									"title": "J++",
+									"price": "19.9",
+									"catId": "1",
+									"authorId": "1"
+								}
+							],
+							"linkedServices": [
+								{
+									"referenceName": "AzureBlobStorageForADF",
+									"type": "LinkedServiceReference"
+								}
+							],
+							"datasets": [
+								{
+									"referenceName": "DS_JSONBooks",
+									"type": "DatasetReference",
+									"parameters": {}
+								}
+							]
+						}
+					},
+					{
+						"name": "Copy csv to json_copy1",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobStorageReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "JsonSink",
+								"storeSettings": {
+									"type": "AzureBlobStorageWriteSettings"
+								},
+								"formatSettings": {
+									"type": "JsonWriteSettings",
+									"filePattern": "arrayOfObjects"
+								}
+							},
+							"enableStaging": false
+						},
+						"inputs": [
+							{
+								"referenceName": "DS_CSVBooks",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "DS_JSONBooks",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"folder": {
+					"name": "ServiceBus"
+				},
+				"annotations": []
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/QueueToBlob')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -890,9 +1013,7 @@
 				},
 				"annotations": []
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/DS_ZipCSVInput')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/Binary1')]",

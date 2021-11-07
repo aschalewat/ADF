@@ -98,6 +98,9 @@
 		"asb-event-trigger_properties_typeProperties_scope": {
 			"value": "/subscriptions/f7fa15ba-3af7-42f7-8108-ebc0c95ca037/resourceGroups/LearnADF/providers/Microsoft.EventGrid/topics/scieg"
 		},
+		"trigger1_properties_typeProperties_scope": {
+			"value": "/subscriptions/f7fa15ba-3af7-42f7-8108-ebc0c95ca037/resourceGroups/LearnADF/providers/Microsoft.Storage/storageAccounts/adfstorageaccount123"
+		},
 		"triggerSQLtoBlob_properties_Sql2Blob_parameters_PLtableName": {
 			"value": "Album"
 		},
@@ -112,9 +115,6 @@
 		},
 		"triggerSQLtoBlob_properties_Sql2Blob_parameters_PLpassword": {
 			"value": "astes310569"
-		},
-		"trigger1_properties_typeProperties_scope": {
-			"value": "/subscriptions/f7fa15ba-3af7-42f7-8108-ebc0c95ca037/resourceGroups/LearnADF/providers/Microsoft.Storage/storageAccounts/adfstorageaccount123"
 		},
 		"containerUri": {
 			"value": ""
