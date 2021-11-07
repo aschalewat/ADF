@@ -1339,7 +1339,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
-						"fileName": "*.json",
+						"fileName": "test.json",
 						"container": "asbinputs"
 					}
 				},
