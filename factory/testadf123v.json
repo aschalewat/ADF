@@ -1,0 +1,9 @@
+{
+	"name": "testadf123v",
+	"location": "ukwest",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "b8a8778b-b2d9-49b6-bf44-5bbbd0d626a6",
+		"tenantId": "45e74e98-4c39-482f-bfbc-ac9ef180632e"
+	}
+}
