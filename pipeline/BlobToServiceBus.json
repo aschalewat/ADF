@@ -5,7 +5,14 @@
 			{
 				"name": "Web1",
 				"type": "WebActivity",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "Copy csv to json_copy1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "7.00:00:00",
 					"retry": 0,
@@ -21,10 +28,105 @@
 						"CustomHeader-Version": "1.0",
 						"Content-Type": "application/json"
 					},
-					"body": {
-						"message": "Hello World"
-					}
+					"body": [
+						{
+							"bookId": "1",
+							"title": "C++",
+							"price": "9.9",
+							"catId": "1",
+							"authorId": "1"
+						},
+						{
+							"bookId": "2",
+							"title": "Java",
+							"price": "19.9",
+							"catId": "1",
+							"authorId": "1"
+						},
+						{
+							"bookId": "3",
+							"title": "MySQL",
+							"price": "29.99",
+							"catId": "4",
+							"authorId": "3"
+						},
+						{
+							"bookId": "4",
+							"title": "Surfing The Internet",
+							"price": "9.9",
+							"catId": "3",
+							"authorId": "1"
+						},
+						{
+							"bookId": "5",
+							"title": "J++",
+							"price": "19.9",
+							"catId": "1",
+							"authorId": "1"
+						}
+					],
+					"linkedServices": [
+						{
+							"referenceName": "AzureBlobStorageForADF",
+							"type": "LinkedServiceReference"
+						}
+					],
+					"datasets": [
+						{
+							"referenceName": "DS_JSONBooks",
+							"type": "DatasetReference"
+						}
+					]
 				}
+			},
+			{
+				"name": "Copy csv to json_copy1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "JsonSink",
+						"storeSettings": {
+							"type": "AzureBlobStorageWriteSettings"
+						},
+						"formatSettings": {
+							"type": "JsonWriteSettings",
+							"filePattern": "arrayOfObjects"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "DS_CSVBooks",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DS_JSONBooks",
+						"type": "DatasetReference"
+					}
+				]
 			}
 		],
 		"folder": {
