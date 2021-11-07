@@ -150,6 +150,10 @@
 		"triggerSQLtoBlob_properties_Sql2Blob_parameters_PLpassword": {
 			"type": "string",
 			"defaultValue": "astes310569"
+		},
+		"trigger1_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/f7fa15ba-3af7-42f7-8108-ebc0c95ca037/resourceGroups/LearnADF/providers/Microsoft.Storage/storageAccounts/adfstorageaccount123"
 		}
 	},
 	"variables": {
@@ -2508,6 +2512,37 @@
 				"[concat(variables('factoryId'), '/datasets/DS_AlbumCSV')]",
 				"[concat(variables('factoryId'), '/datasets/DS_ArtistCSV')]",
 				"[concat(variables('factoryId'), '/datasets/DS_MusicJSON')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/trigger1')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "QueueToBlob",
+							"type": "PipelineReference"
+						},
+						"parameters": {}
+					}
+				],
+				"type": "BlobEventsTrigger",
+				"typeProperties": {
+					"blobPathBeginsWith": "/asbinputs/blobs/",
+					"blobPathEndsWith": "json",
+					"ignoreEmptyBlobs": true,
+					"scope": "[parameters('trigger1_properties_typeProperties_scope')]",
+					"events": [
+						"Microsoft.Storage.BlobCreated"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/QueueToBlob')]"
 			]
 		}
 	]

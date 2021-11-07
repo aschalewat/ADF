@@ -112,6 +112,9 @@
 		},
 		"triggerSQLtoBlob_properties_Sql2Blob_parameters_PLpassword": {
 			"value": "astes310569"
+		},
+		"trigger1_properties_typeProperties_scope": {
+			"value": "/subscriptions/f7fa15ba-3af7-42f7-8108-ebc0c95ca037/resourceGroups/LearnADF/providers/Microsoft.Storage/storageAccounts/adfstorageaccount123"
 		}
 	}
 }
