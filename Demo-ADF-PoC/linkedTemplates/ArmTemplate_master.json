@@ -127,6 +127,10 @@
 			"type": "string",
 			"defaultValue": "aschalew"
 		},
+		"asb-event-trigger_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/f7fa15ba-3af7-42f7-8108-ebc0c95ca037/resourceGroups/LearnADF/providers/Microsoft.EventGrid/topics/scieg"
+		},
 		"triggerSQLtoBlob_properties_Sql2Blob_parameters_PLtableName": {
 			"type": "string",
 			"defaultValue": "Album"
@@ -177,20 +181,8 @@
 					"AzureBlobStorageForADF_connectionString": {
 						"value": "[parameters('AzureBlobStorageForADF_connectionString')]"
 					},
-					"AzureBatch2_accessKey": {
-						"value": "[parameters('AzureBatch2_accessKey')]"
-					},
 					"RestService1_properties_typeProperties_url": {
 						"value": "[parameters('RestService1_properties_typeProperties_url')]"
-					},
-					"AzureBatch2_properties_typeProperties_batchUri": {
-						"value": "[parameters('AzureBatch2_properties_typeProperties_batchUri')]"
-					},
-					"AzureBatch2_properties_typeProperties_poolName": {
-						"value": "[parameters('AzureBatch2_properties_typeProperties_poolName')]"
-					},
-					"AzureBatch2_properties_typeProperties_accountName": {
-						"value": "[parameters('AzureBatch2_properties_typeProperties_accountName')]"
 					}
 				}
 			},
@@ -209,6 +201,9 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
+					},
+					"AzureBatch2_accessKey": {
+						"value": "[parameters('AzureBatch2_accessKey')]"
 					},
 					"AzureBlobStorageOnPrem_connectionString": {
 						"value": "[parameters('AzureBlobStorageOnPrem_connectionString')]"
@@ -239,6 +234,15 @@
 					},
 					"SqlServerOnPrem1_connectionString": {
 						"value": "[parameters('SqlServerOnPrem1_connectionString')]"
+					},
+					"AzureBatch2_properties_typeProperties_batchUri": {
+						"value": "[parameters('AzureBatch2_properties_typeProperties_batchUri')]"
+					},
+					"AzureBatch2_properties_typeProperties_poolName": {
+						"value": "[parameters('AzureBatch2_properties_typeProperties_poolName')]"
+					},
+					"AzureBatch2_properties_typeProperties_accountName": {
+						"value": "[parameters('AzureBatch2_properties_typeProperties_accountName')]"
 					},
 					"AzureFileStorage1_properties_typeProperties_host": {
 						"value": "[parameters('AzureFileStorage1_properties_typeProperties_host')]"
@@ -301,6 +305,9 @@
 					},
 					"AzureBatch1_properties_typeProperties_accountName": {
 						"value": "[parameters('AzureBatch1_properties_typeProperties_accountName')]"
+					},
+					"asb-event-trigger_properties_typeProperties_scope": {
+						"value": "[parameters('asb-event-trigger_properties_typeProperties_scope')]"
 					},
 					"triggerSQLtoBlob_properties_Sql2Blob_parameters_PLtableName": {
 						"value": "[parameters('triggerSQLtoBlob_properties_Sql2Blob_parameters_PLtableName')]"
