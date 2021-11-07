@@ -2353,8 +2353,8 @@
 				],
 				"type": "CustomEventsTrigger",
 				"typeProperties": {
-					"subjectEndsWith": "i",
-					"subjectBeginsWith": "s",
+					"subjectEndsWith": "",
+					"subjectBeginsWith": "",
 					"scope": "[parameters('asb-event-trigger_properties_typeProperties_scope')]",
 					"events": [
 						"test"
