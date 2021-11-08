@@ -827,7 +827,7 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/QueueToBlob')]",
+			"name": "[concat(parameters('factoryName'), '/ServiceBUsToBlobListener')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -893,7 +893,7 @@
 					}
 				},
 				"folder": {
-					"name": "Queue"
+					"name": "ServiceBus"
 				},
 				"annotations": []
 			},
