@@ -135,6 +135,10 @@
 			"type": "string",
 			"defaultValue": "/subscriptions/f7fa15ba-3af7-42f7-8108-ebc0c95ca037/resourceGroups/LearnADF/providers/Microsoft.Storage/storageAccounts/adfstorageaccount123"
 		},
+		"trigger2_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/f7fa15ba-3af7-42f7-8108-ebc0c95ca037/resourceGroups/LearnADF/providers/Microsoft.EventGrid/topics/scieg"
+		},
 		"triggerSQLtoBlob_properties_Sql2Blob_parameters_PLtableName": {
 			"type": "string",
 			"defaultValue": "Album"
@@ -315,6 +319,9 @@
 					},
 					"trigger1_properties_typeProperties_scope": {
 						"value": "[parameters('trigger1_properties_typeProperties_scope')]"
+					},
+					"trigger2_properties_typeProperties_scope": {
+						"value": "[parameters('trigger2_properties_typeProperties_scope')]"
 					},
 					"triggerSQLtoBlob_properties_Sql2Blob_parameters_PLtableName": {
 						"value": "[parameters('triggerSQLtoBlob_properties_Sql2Blob_parameters_PLtableName')]"

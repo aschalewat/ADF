@@ -31,6 +31,10 @@
 			"type": "string",
 			"defaultValue": "/subscriptions/f7fa15ba-3af7-42f7-8108-ebc0c95ca037/resourceGroups/LearnADF/providers/Microsoft.Storage/storageAccounts/adfstorageaccount123"
 		},
+		"trigger2_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/f7fa15ba-3af7-42f7-8108-ebc0c95ca037/resourceGroups/LearnADF/providers/Microsoft.EventGrid/topics/scieg"
+		},
 		"triggerSQLtoBlob_properties_Sql2Blob_parameters_PLtableName": {
 			"type": "string",
 			"defaultValue": "Album"
@@ -874,6 +878,34 @@
 					"scope": "[parameters('trigger1_properties_typeProperties_scope')]",
 					"events": [
 						"Microsoft.Storage.BlobCreated"
+					]
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/trigger2')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "QueueToBlob",
+							"type": "PipelineReference"
+						},
+						"parameters": {}
+					}
+				],
+				"type": "CustomEventsTrigger",
+				"typeProperties": {
+					"subjectEndsWith": "",
+					"subjectBeginsWith": "",
+					"scope": "[parameters('trigger2_properties_typeProperties_scope')]",
+					"events": [
+						"asb-msg"
 					]
 				}
 			},

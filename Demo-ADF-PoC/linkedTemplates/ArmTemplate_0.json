@@ -47,28 +47,6 @@
 								"type": "Expression"
 							}
 						}
-					},
-					{
-						"name": "Web1_copy1",
-						"type": "WebActivity",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"url": "https://prod-09.ukwest.logic.azure.com:443/workflows/ecb2a02e9bc54468a6273a7bb532afb2/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=PCfkdpMVhxd4VCQnumvVb0JdM0lEsS6raBlwBScoRhY",
-							"method": "POST",
-							"headers": {},
-							"body": {
-								"value": "{\n    \"title\": \"PIPELINE RUN FINISHED\",\n    \"message\": \"DEMO-PIPELINE FINISHED RUNNING SUCCESSFULLY!\",\n    \"color\": \"Green\",\n    \"dataFactoryName\": \"@{pipeline().DataFactory}\",\n    \"pipelineName\": \"@{pipeline().Pipeline}\",\n    \"pipelineRunId\": \"@{pipeline().RunId}\",\n    \"time\": \"@{utcnow()}\"\n}",
-								"type": "Expression"
-							}
-						}
 					}
 				],
 				"policy": {
