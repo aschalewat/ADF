@@ -51,6 +51,11 @@
 				]
 			}
 		],
+		"parameters": {
+			"df": {
+				"type": "string"
+			}
+		},
 		"folder": {
 			"name": "Queue"
 		},
