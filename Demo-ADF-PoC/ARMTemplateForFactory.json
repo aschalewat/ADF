@@ -491,7 +491,7 @@
 						"type": "WebActivity",
 						"dependsOn": [
 							{
-								"activity": "Copy csv to json_copy1",
+								"activity": "BooksJsonLookup",
 								"dependencyConditions": [
 									"Succeeded"
 								]
@@ -512,43 +512,10 @@
 								"CustomHeader-Version": "1.0",
 								"Content-Type": "application/json"
 							},
-							"body": [
-								{
-									"bookId": "1",
-									"title": "C++",
-									"price": "9.9",
-									"catId": "1",
-									"authorId": "1"
-								},
-								{
-									"bookId": "2",
-									"title": "Java",
-									"price": "19.9",
-									"catId": "1",
-									"authorId": "1"
-								},
-								{
-									"bookId": "3",
-									"title": "MySQL",
-									"price": "29.99",
-									"catId": "4",
-									"authorId": "3"
-								},
-								{
-									"bookId": "4",
-									"title": "Surfing The Internet",
-									"price": "9.9",
-									"catId": "3",
-									"authorId": "1"
-								},
-								{
-									"bookId": "5",
-									"title": "J++",
-									"price": "19.9",
-									"catId": "1",
-									"authorId": "1"
-								}
-							],
+							"body": {
+								"value": "@activity('BooksJsonLookup').output.value",
+								"type": "Expression"
+							},
 							"linkedServices": [
 								{
 									"referenceName": "AzureBlobStorageForADF",
@@ -614,6 +581,46 @@
 								"parameters": {}
 							}
 						]
+					},
+					{
+						"name": "BooksJsonLookup",
+						"type": "Lookup",
+						"dependsOn": [
+							{
+								"activity": "Copy csv to json_copy1",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "JsonSource",
+								"storeSettings": {
+									"type": "AzureBlobStorageReadSettings",
+									"recursive": true,
+									"wildcardFileName": "*.json",
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "JsonReadSettings"
+								}
+							},
+							"dataset": {
+								"referenceName": "DS_JSONBooks",
+								"type": "DatasetReference",
+								"parameters": {}
+							},
+							"firstRowOnly": false
+						}
 					}
 				],
 				"policy": {
