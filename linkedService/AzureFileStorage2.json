@@ -7,7 +7,7 @@
 		"typeProperties": {
 			"host": "C:\\1-Projects\\SCI\\Azure\\scripts",
 			"userId": "a.tessema@reply.com",
-			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI5NzI0ODgzZS1kYWU2LTRkMjEtYThmOC01NDA4OWUyNWUxMjAiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI3MjI4MDUxYy04ZGU5LTQzNmEtOGRkMy1kZDc3MGVmMGEyOTMiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
 		},
 		"connectVia": {
 			"referenceName": "OnPremLaptop",
