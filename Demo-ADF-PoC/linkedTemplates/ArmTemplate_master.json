@@ -322,6 +322,26 @@
 					},
 					"trigger2_properties_typeProperties_scope": {
 						"value": "[parameters('trigger2_properties_typeProperties_scope')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'Demo-ADF-PoC_ArmTemplate_1')]"
+			]
+		},
+		{
+			"name": "Demo-ADF-PoC_ArmTemplate_3",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_3.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
 					},
 					"triggerSQLtoBlob_properties_Sql2Blob_parameters_PLtableName": {
 						"value": "[parameters('triggerSQLtoBlob_properties_Sql2Blob_parameters_PLtableName')]"
@@ -341,7 +361,7 @@
 				}
 			},
 			"dependsOn": [
-				"[resourceId('Microsoft.Resources/deployments', 'Demo-ADF-PoC_ArmTemplate_1')]"
+				"[resourceId('Microsoft.Resources/deployments', 'Demo-ADF-PoC_ArmTemplate_2')]"
 			]
 		}
 	]

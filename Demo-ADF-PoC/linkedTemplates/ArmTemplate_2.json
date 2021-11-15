@@ -34,32 +34,87 @@
 		"trigger2_properties_typeProperties_scope": {
 			"type": "string",
 			"defaultValue": "/subscriptions/f7fa15ba-3af7-42f7-8108-ebc0c95ca037/resourceGroups/LearnADF/providers/Microsoft.EventGrid/topics/scieg"
-		},
-		"triggerSQLtoBlob_properties_Sql2Blob_parameters_PLtableName": {
-			"type": "string",
-			"defaultValue": "Album"
-		},
-		"triggerSQLtoBlob_properties_Sql2Blob_parameters_PLserverName": {
-			"type": "string",
-			"defaultValue": "DESKTOP-3SA6C5T"
-		},
-		"triggerSQLtoBlob_properties_Sql2Blob_parameters_PLdbName": {
-			"type": "string",
-			"defaultValue": "mymusic"
-		},
-		"triggerSQLtoBlob_properties_Sql2Blob_parameters_PLuser": {
-			"type": "string",
-			"defaultValue": "aschalew"
-		},
-		"triggerSQLtoBlob_properties_Sql2Blob_parameters_PLpassword": {
-			"type": "string",
-			"defaultValue": "astes310569"
 		}
 	},
 	"variables": {
 		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
 	},
 	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/Storedprocedure')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Stored procedure to SQL on Prem",
+						"type": "SqlServerStoredProcedure",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"storedProcedureName": "[[dbo].[sp_PipeLineExecutionDetails]",
+							"storedProcedureParameters": {
+								"DataFactoryName": {
+									"value": {
+										"value": "@pipeline().DataFactory",
+										"type": "Expression"
+									},
+									"type": "String"
+								},
+								"PipeLineName": {
+									"value": {
+										"value": "@pipeline().Pipeline",
+										"type": "Expression"
+									},
+									"type": "String"
+								},
+								"PipeLineRunID": {
+									"value": {
+										"value": "@pipeline().RunId",
+										"type": "Expression"
+									},
+									"type": "String"
+								},
+								"PipeLineTriggerName": {
+									"value": {
+										"value": "@pipeline().TriggerName",
+										"type": "Expression"
+									},
+									"type": "String"
+								},
+								"PipeLineTriggerTime": {
+									"value": {
+										"value": "@pipeline().TriggerTime",
+										"type": "Expression"
+									},
+									"type": "String"
+								}
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "SQlServeronPremAzure",
+							"type": "LinkedServiceReference"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"folder": {
+					"name": "SQL2Blob"
+				},
+				"annotations": []
+			},
+			"dependsOn": []
+		},
 		{
 			"name": "[concat(parameters('factoryName'), '/UnzipCSVFiles')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
@@ -378,7 +433,7 @@
 								"referenceName": "DS_MusicJSON",
 								"type": "DatasetReference"
 							},
-							"name": "sink1"
+							"name": "musics"
 						}
 					],
 					"transformations": [
@@ -407,7 +462,7 @@
 							"name": "Aggregate3"
 						}
 					],
-					"script": "source(output(\n\t\tTrackID as string,\n\t\tTrackName as string,\n\t\tDuration as string,\n\t\tAlbum as string,\n\t\tTrackURL as string,\n\t\tTrackPath as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> source1\nsource(output(\n\t\tAlbumID as string,\n\t\tAlbumName as string,\n\t\tReleaseDate as string,\n\t\tPrice as string,\n\t\tArtist as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> source2\nsource(output(\n\t\tArtistID as string,\n\t\tFirstName as string,\n\t\tLastName as string,\n\t\tTown as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> source4\nDerivedColumn1 aggregate(groupBy(Artist),\n\tAlbums = collect(Albums)) ~> Aggregate1\nJoin1 derive(Albums = @(AlbumName=AlbumName,\n\t\tReleaseDate=ReleaseDate,\n\t\tPrice=Price,\n\t\tTracks=Tracks,\n\t\tAlbumID=AlbumID)) ~> DerivedColumn1\nsource1 derive(Tracks = @(TrackID=TrackID,\n\t\tTrackName=TrackName,\n\t\tDuration=Duration,\n\t\tTrackURL=TrackURL,\n\t\tTrackPath=TrackPath)) ~> DerivedColumn2\nDerivedColumn2 aggregate(groupBy(Album),\n\tTracks = collect(Tracks)) ~> Aggregate2\nsource2, Aggregate2 join(AlbumID == Album,\n\tjoinType:'inner',\n\tbroadcast: 'auto')~> Join1\nsource4, Aggregate1 join(ArtistID == Artist,\n\tjoinType:'left',\n\tbroadcast: 'auto')~> Join3\nJoin3 derive(Artists = @(ArtistID=ArtistID,\n\t\tFirstName=FirstName,\n\t\tLastName=LastName,\n\t\tTown=Town,\n\t\tAlbums=Albums)) ~> DerivedColumn3\nDerivedColumn3 aggregate(groupBy(ArtistID),\n\tArtists = collect(Artists)) ~> Aggregate3\nAggregate2 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tstore: 'cache',\n\tformat: 'inline',\n\toutput: false,\n\tsaveOrder: 1) ~> tracks\nAggregate1 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tstore: 'cache',\n\tformat: 'inline',\n\toutput: false,\n\tsaveOrder: 1) ~> albums\nAggregate3 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\ttitle as string,\n\t\tprice as double,\n\t\tauthor_id as integer,\n\t\tcat_id as integer,\n\t\tdescription as string,\n\t\tbook_id as integer\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tmapColumn(\n\t\tArtists\n\t)) ~> sink1"
+					"script": "source(output(\n\t\tTrackID as string,\n\t\tTrackName as string,\n\t\tDuration as string,\n\t\tAlbum as string,\n\t\tTrackURL as string,\n\t\tTrackPath as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> source1\nsource(output(\n\t\tAlbumID as string,\n\t\tAlbumName as string,\n\t\tReleaseDate as string,\n\t\tPrice as string,\n\t\tArtist as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> source2\nsource(output(\n\t\tArtistID as string,\n\t\tFirstName as string,\n\t\tLastName as string,\n\t\tTown as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> source4\nDerivedColumn1 aggregate(groupBy(Artist),\n\tAlbums = collect(Albums)) ~> Aggregate1\nJoin1 derive(Albums = @(AlbumName=AlbumName,\n\t\tReleaseDate=ReleaseDate,\n\t\tPrice=Price,\n\t\tTracks=Tracks,\n\t\tAlbumID=AlbumID)) ~> DerivedColumn1\nsource1 derive(Tracks = @(TrackID=TrackID,\n\t\tTrackName=TrackName,\n\t\tDuration=Duration,\n\t\tTrackURL=TrackURL,\n\t\tTrackPath=TrackPath)) ~> DerivedColumn2\nDerivedColumn2 aggregate(groupBy(Album),\n\tTracks = collect(Tracks)) ~> Aggregate2\nsource2, Aggregate2 join(AlbumID == Album,\n\tjoinType:'inner',\n\tbroadcast: 'auto')~> Join1\nsource4, Aggregate1 join(ArtistID == Artist,\n\tjoinType:'left',\n\tbroadcast: 'auto')~> Join3\nJoin3 derive(Artists = @(ArtistID=ArtistID,\n\t\tFirstName=FirstName,\n\t\tLastName=LastName,\n\t\tTown=Town,\n\t\tAlbums=Albums)) ~> DerivedColumn3\nDerivedColumn3 aggregate(groupBy(ArtistID),\n\tArtists = collect(Artists)) ~> Aggregate3\nAggregate2 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tstore: 'cache',\n\tformat: 'inline',\n\toutput: false,\n\tsaveOrder: 1) ~> tracks\nAggregate1 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tstore: 'cache',\n\tformat: 'inline',\n\toutput: false,\n\tsaveOrder: 1) ~> albums\nAggregate3 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\ttitle as string,\n\t\tprice as double,\n\t\tauthor_id as integer,\n\t\tcat_id as integer,\n\t\tdescription as string,\n\t\tbook_id as integer\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tsaveOrder: 2,\n\tmapColumn(\n\t\tArtists\n\t)) ~> musics"
 				}
 			},
 			"dependsOn": []
@@ -441,7 +496,7 @@
 									"source4": {},
 									"tracks": {},
 									"albums": {},
-									"sink1": {}
+									"musics": {}
 								}
 							},
 							"staging": {},
@@ -999,50 +1054,6 @@
 				}
 			},
 			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/triggerSQLtoBlob')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"runtimeState": "Started",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "Sql2Blob",
-							"type": "PipelineReference"
-						},
-						"parameters": {
-							"PLtableName": "[parameters('triggerSQLtoBlob_properties_Sql2Blob_parameters_PLtableName')]",
-							"PLserverName": "[parameters('triggerSQLtoBlob_properties_Sql2Blob_parameters_PLserverName')]",
-							"PLdbName": "[parameters('triggerSQLtoBlob_properties_Sql2Blob_parameters_PLdbName')]",
-							"PLuser": "[parameters('triggerSQLtoBlob_properties_Sql2Blob_parameters_PLuser')]",
-							"PLpassword": "[parameters('triggerSQLtoBlob_properties_Sql2Blob_parameters_PLpassword')]"
-						}
-					}
-				],
-				"type": "ScheduleTrigger",
-				"typeProperties": {
-					"recurrence": {
-						"frequency": "Day",
-						"interval": 1,
-						"startTime": "2021-10-23T16:43:00",
-						"timeZone": "GMT Standard Time",
-						"schedule": {
-							"minutes": [
-								19
-							],
-							"hours": [
-								19
-							]
-						}
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/Sql2Blob')]"
-			]
 		}
 	]
 }

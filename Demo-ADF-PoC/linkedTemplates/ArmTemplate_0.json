@@ -1975,6 +1975,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
+						"fileName": "music.json",
 						"container": "music"
 					}
 				},
