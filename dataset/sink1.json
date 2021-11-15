@@ -1,0 +1,21 @@
+{
+	"name": "sink1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorageForADF",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"container": "inputfolder"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
